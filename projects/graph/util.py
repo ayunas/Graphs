@@ -1,5 +1,7 @@
 
 # Note: This Queue class is sub-optimal. Why?
+#O(n) to take out.
+
 class Queue():
     def __init__(self):
         self.queue = []
