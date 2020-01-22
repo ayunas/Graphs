@@ -26,7 +26,7 @@ class Graph:
             return (v1,v2)
         
         self.vertices[v1].add(v2)
-        self.vertices[v2].add(v1)
+        # self.vertices[v2].add(v1)
         # self.vertices[v1].add(v2) = v2
         # self.vertices[v2] = v1
 
@@ -46,30 +46,34 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        print('start', starting_vertex)
+        # print('start', starting_vertex)
 
     #1. add neighbors of starting_vertex to queue
         q = Queue()
         neighbors = self.get_neighbors(starting_vertex)
-        print('neighb', neighbors)
+        # print('neighb', neighbors)
         for n in neighbors:
             q.enqueue(n)
     
     #2. mark starting node as explored:
         # visited = [False]*len(self.vertices)
         visited = [starting_vertex]
-        print('visited',visited)
-        print('q.size', q.size())
+        # print('visited',visited)
+        # print('q.size', q.size())
+    #3. While the queue has vertices
+    #   :
         while q.size():
             # print('queue', q)
-    #3. get first node which is the neighbor of starting_vertex.  remove it from queue.
+    #4. pop off (dequeue) oldest node from queue. which is the neighbor of starting_vertex.
             vertex = q.dequeue()
-    #4. check if vertex is visited. 
+    #5. check if vertex is visited. 
             # print('vertex', vertex)
             # print('visited[vertex]', vertex, visited[vertex])
             if vertex not in visited:
-                print('vertex:', vertex)
+                # print('vertex:', vertex)
+    #6. add vertex to visited array
                 visited.append(vertex)
+    #7. get the neighbors of the current vertex and add them to the queue
                 neighbors = self.get_neighbors(vertex)
                 # print('neighbors', neighbors)
                 for n in neighbors:
@@ -98,6 +102,30 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
+        s = Stack()
+        neighbors = self.get_neighbors(starting_vertex)
+        
+        for n in neighbors:
+            s.push(n)
+        
+        visited = [starting_vertex]
+        
+        while s.size():
+            v = s.pop()
+            if v not in visited:
+                visited.append(v)
+                neighbors = self.get_neighbors(v)
+                for n in neighbors:
+                    s.push(n)
+        return visited
+
+
+
+
+
+
+
+
         pass  # TODO
 
     def dft_recursive(self, starting_vertex):
@@ -141,44 +169,43 @@ class Graph:
 
 g = Graph()
 
-for i in range(50):
-    # vertex = str(randint(1,50))
-    g.add_vertex(i+1)
+# for i in range(50):
+#     # vertex = str(randint(1,50))
+#     g.add_vertex(i+1)
 
-for i in range(100):
-    v1 = randint(1,50)
-    v2 = randint(1,50)
-    g.add_edge(v1,v2)
+# for i in range(100):
+#     v1 = randint(1,50)
+#     v2 = randint(1,50)
+#     g.add_edge(v1,v2)
 
-# print(g)
-x = g.bft(2)
-print('x', x)
-
-
+# # print(g)
+# breadth_first_traversal = g.bft(2)
+# print('breadth first traversal', breadth_first_traversal)
 
 
 
+if __name__ == '__main__':
+    graph = Graph()  # Instantiate your graph
+    # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
+    graph.add_vertex(1)
+    graph.add_vertex(2)
+    graph.add_vertex(3)
+    graph.add_vertex(4)
+    graph.add_vertex(5)
+    graph.add_vertex(6)
+    graph.add_vertex(7)
+    graph.add_edge(5, 3)
+    graph.add_edge(6, 3)
+    graph.add_edge(7, 1)
+    graph.add_edge(4, 7)
+    graph.add_edge(1, 2)
+    graph.add_edge(7, 6)
+    graph.add_edge(2, 4)
+    graph.add_edge(3, 5)
+    graph.add_edge(2, 3)
+    graph.add_edge(4, 6)
 
-# if __name__ == '__main__':
-#     graph = Graph()  # Instantiate your graph
-#     # https://github.com/LambdaSchool/Graphs/blob/master/objectives/breadth-first-search/img/bfs-visit-order.png
-#     graph.add_vertex(1)
-#     graph.add_vertex(2)
-#     graph.add_vertex(3)
-#     graph.add_vertex(4)
-#     graph.add_vertex(5)
-#     graph.add_vertex(6)
-#     graph.add_vertex(7)
-#     graph.add_edge(5, 3)
-#     graph.add_edge(6, 3)
-#     graph.add_edge(7, 1)
-#     graph.add_edge(4, 7)
-#     graph.add_edge(1, 2)
-#     graph.add_edge(7, 6)
-#     graph.add_edge(2, 4)
-#     graph.add_edge(3, 5)
-#     graph.add_edge(2, 3)
-#     graph.add_edge(4, 6)
+    print(graph)
 
 #     '''
 #     Should print:
@@ -201,8 +228,8 @@ print('x', x)
 #         1, 2, 4, 3, 7, 6, 5
 #         1, 2, 4, 3, 7, 5, 6
 #     '''
-#     graph.bft(1)
-
+    breadth = graph.bft(1)
+    print('breadth: ', breadth)
 #     '''
 #     Valid DFT paths:
 #         1, 2, 3, 5, 4, 6, 7
@@ -210,7 +237,8 @@ print('x', x)
 #         1, 2, 4, 7, 6, 3, 5
 #         1, 2, 4, 6, 3, 5, 7
 #     '''
-#     graph.dft(1)
+    depth = graph.dft(1)
+    print('depth', depth)
 #     graph.dft_recursive(1)
 
 #     '''
