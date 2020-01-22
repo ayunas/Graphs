@@ -86,17 +86,6 @@ class Graph:
         # v = starting_vertex
         # visited[v] = True
 
-        # while queue:
-        #     s = queue.dequeue()
-        #     print(s, end = " ")
-
-        #     for i in self.vertices[s]:
-        #         if visited[i] == False:
-        #             queue.enqueue(i)
-        #             visited[i] == True
-
-
-
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
@@ -119,14 +108,15 @@ class Graph:
                     s.push(n)
         return visited
 
+    def dft_helper(self,v,visited):
+        visited.append(v)
 
+        for neighbor in self.vertices[v]:
+            if neighbor not in visited:
+                visited = self.dft_helper(neighbor,visited)
 
+        return visited
 
-
-
-
-
-        pass  # TODO
 
     def dft_recursive(self, starting_vertex):
         """
@@ -135,7 +125,10 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        visited = []
+        vis = self.dft_helper(starting_vertex,visited)
+
+        return vis
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -239,7 +232,9 @@ if __name__ == '__main__':
 #     '''
     depth = graph.dft(1)
     print('depth', depth)
-#     graph.dft_recursive(1)
+    v = graph.dft_recursive(1)
+    print('dft_recursive', v)
+
 
 #     '''
 #     Valid BFS path:
