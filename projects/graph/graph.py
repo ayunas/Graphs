@@ -34,14 +34,64 @@ class Graph:
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        neighbors = []
+
+        for neighbor in self.vertices[vertex_id]:
+           neighbors.append(neighbor)
+
+        return neighbors
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        print('start', starting_vertex)
+
+    #1. add neighbors of starting_vertex to queue
+        q = Queue()
+        neighbors = self.get_neighbors(starting_vertex)
+        print('neighb', neighbors)
+        for n in neighbors:
+            q.enqueue(n)
+    
+    #2. mark starting node as explored:
+        # visited = [False]*len(self.vertices)
+        visited = [starting_vertex]
+        print('visited',visited)
+        print('q.size', q.size())
+        while q.size():
+            # print('queue', q)
+    #3. get first node which is the neighbor of starting_vertex.  remove it from queue.
+            vertex = q.dequeue()
+    #4. check if vertex is visited. 
+            # print('vertex', vertex)
+            # print('visited[vertex]', vertex, visited[vertex])
+            if vertex not in visited:
+                print('vertex:', vertex)
+                visited.append(vertex)
+                neighbors = self.get_neighbors(vertex)
+                # print('neighbors', neighbors)
+                for n in neighbors:
+                    q.enqueue(n)
+        return visited
+        # print('vertices', len(self.vertices))
+        # visited = [False]*len(self.vertices)
+        # queue = Queue()
+        # queue.enqueue(starting_vertex)
+        # v = starting_vertex
+        # visited[v] = True
+
+        # while queue:
+        #     s = queue.dequeue()
+        #     print(s, end = " ")
+
+        #     for i in self.vertices[s]:
+        #         if visited[i] == False:
+        #             queue.enqueue(i)
+        #             visited[i] == True
+
+
 
     def dft(self, starting_vertex):
         """
@@ -92,13 +142,20 @@ class Graph:
 g = Graph()
 
 for i in range(50):
-    vertex = str(randint(1,50))
-    g.add_vertex(vertex)
+    # vertex = str(randint(1,50))
+    g.add_vertex(i+1)
 
-g.add_edge('2','4')
-g.add_edge('1','4')
+for i in range(100):
+    v1 = randint(1,50)
+    v2 = randint(1,50)
+    g.add_edge(v1,v2)
 
-print(g)
+# print(g)
+x = g.bft(2)
+print('x', x)
+
+
+
 
 
 

@@ -14,6 +14,9 @@ class Queue():
             return None
     def size(self):
         return len(self.queue)
+    
+    def __repr__(self):
+        return str(self.queue)
 
 class Stack():
     def __init__(self):
@@ -27,4 +30,11 @@ class Stack():
             return None
     def size(self):
         return len(self.stack)
+
+q = Queue()
+
+q.enqueue(5)
+q.enqueue(10)
+
+
 
