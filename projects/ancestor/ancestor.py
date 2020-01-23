@@ -39,9 +39,10 @@ def earliest_ancestor(parents_children, start_vert):
 
     valid_paths = [p for p in paths if p != None and len(p) > 1]
     # valid_paths = list(filter(lambda p: p != None, paths))
+    
     if len(valid_paths) == 0:
         return -1
-        
+
     longest_path = max(valid_paths, key=len)
     
     return longest_path[-1]
