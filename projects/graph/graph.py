@@ -45,46 +45,30 @@ class Graph:
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
+        #1. add neighbors of starting_vertex to queue
+        #2. mark starting node as explored:
+        # visited = [False]*len(self.vertices)
+        #3. While the queue has vertices
+        #4. pop off (dequeue) oldest node from queue. which is the neighbor of starting_vertex.
+        #5. check if vertex is visited. 
+        #6. add vertex to visited array
+        #7. get the neighbors of the current vertex and add them to the queue
         """
-        # print('start', starting_vertex)
-
-    #1. add neighbors of starting_vertex to queue
         q = Queue()
         neighbors = self.get_neighbors(starting_vertex)
-        # print('neighb', neighbors)
         for n in neighbors:
             q.enqueue(n)
-    
-    #2. mark starting node as explored:
-        # visited = [False]*len(self.vertices)
+
         visited = [starting_vertex]
-        # print('visited',visited)
-        # print('q.size', q.size())
-    #3. While the queue has vertices
-    #   :
+       
         while q.size():
-            # print('queue', q)
-    #4. pop off (dequeue) oldest node from queue. which is the neighbor of starting_vertex.
             vertex = q.dequeue()
-    #5. check if vertex is visited. 
-            # print('vertex', vertex)
-            # print('visited[vertex]', vertex, visited[vertex])
             if vertex not in visited:
-                # print('vertex:', vertex)
-    #6. add vertex to visited array
                 visited.append(vertex)
-    #7. get the neighbors of the current vertex and add them to the queue
                 neighbors = self.get_neighbors(vertex)
-                # print('neighbors', neighbors)
                 for n in neighbors:
                     q.enqueue(n)
         return visited
-        # print('vertices', len(self.vertices))
-        # visited = [False]*len(self.vertices)
-        # queue = Queue()
-        # queue.enqueue(starting_vertex)
-        # v = starting_vertex
-        # visited[v] = True
 
     def dft(self, starting_vertex):
         """
@@ -234,7 +218,6 @@ if __name__ == '__main__':
     print('depth', depth)
     v = graph.dft_recursive(1)
     print('dft_recursive', v)
-
 
 #     '''
 #     Valid BFS path:
